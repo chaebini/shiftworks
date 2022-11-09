@@ -49,14 +49,14 @@ public class StompChatController {
 	}
 	
 	
-	@MessageMapping("/chat/send")
+	@MessageMapping(value="/chatroom/{room_id}")
 	@ResponseBody
 	public void sendChat(@RequestBody ChatVO chat) {
 		
 		log.info("@StompChatController, sendChat");
 		
 		// 채팅 전송
-		simpMessagingTemplate.convertAndSend("/sub/messenger/chat/send/" + chat.getRoom_id(), chat);
+		simpMessagingTemplate.convertAndSend("/sub/chatroom/" + chat.getRoom_id(), chat);
 		
 	}
 	

@@ -352,7 +352,7 @@ $(document).ready(function() {
     		console.log('connected : ' + frame);
     		
     		// /room/{roomId}를 구독
-    		stompClient.subscribe('/sub/messenger/chat/send/' + room_id, function(chat){
+    		stompClient.subscribe('/sub/chatroom/' + room_id, function(chat){
     			console.log("구독 : " + chat.body);
 
     			// 메시지를 보내면 서버를 거쳐 구독하고 있는 클라이언트들에게 showChat로 메세지 보여진다.
@@ -395,7 +395,7 @@ $(document).ready(function() {
         var content =  $('.write-message').val();
         console.log("전송 버튼 클릭 이벤트 : content : " + content);
        
-        if(content != "" || content != null){
+        if(content != "" && content != null){
         // room_id 가져오기
         var room_id = $('.chat .header-chat .name').attr('id').substr(5);
         console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
@@ -412,18 +412,18 @@ $(document).ready(function() {
 	            room_id: room_id
 	          };
         console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
-        stompClient.send('/sub/messenger/chat/send/'+ room_id, {}, JSON.stringify(chat));
+        //stompClient.send('/sub/chatroom/'+ room_id, {}, JSON.stringify(chat));
         
-       /*  messengerService.sendChat(chat, function(result){
-        	 console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
+        messengerService.sendChat(chat, function(result){
+        	console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
         	console.log("메시지 전송 결과 : " + result);
         	console.log("sendchat : " + result);
         	if(result == 'success'){
-        		stompClient.send('/sub/messenger/chat/send/'+ room_id, {}, JSON.stringify(chat));
+        		stompClient.send('/sub/chatroom/'+ room_id, {}, JSON.stringify(chat));  
         		printChat(chat);
         	}
         	
-        }); */
+        });
         
         // 채팅 입력창 비우고 포커스
         $('.write-message').val('').focus();
