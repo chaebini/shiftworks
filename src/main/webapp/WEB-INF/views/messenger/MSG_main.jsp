@@ -353,14 +353,14 @@ $(document).ready(function() {
     		
     		// /room/{roomId}를 구독
     		stompClient.subscribe('/sub/messenger/chat/send/' + room_id, function(chat){
-    			
+    			console.log("구독 : " + chat.body);
+
     			// 메시지를 보내면 서버를 거쳐 구독하고 있는 클라이언트들에게 showChat로 메세지 보여진다.
-    			
-    			messengerService.sendChat(chat, function(result){
+    			messengerService.sendChat(chat.body, function(result){
         			console.log("메시지 받은 결과 : " + result);
         	
         			if(result == 'success'){
-        				printChat(JSON.parse(chat));
+        				printChat(JSON.parse(chat.body));
         			}
         	
         });
@@ -411,16 +411,19 @@ $(document).ready(function() {
 	            sender: login_id,
 	            room_id: room_id
 	          };
-     
-        messengerService.sendChat(chat, function(result){
+        console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
+        stompClient.send('/sub/messenger/chat/send/'+ room_id, {}, JSON.stringify(chat));
+        
+       /*  messengerService.sendChat(chat, function(result){
+        	 console.log("전송 버튼 클릭 이벤트 : room_id : " + room_id);
         	console.log("메시지 전송 결과 : " + result);
         	console.log("sendchat : " + result);
         	if(result == 'success'){
-        		stompClient.send('/sub/messenger/chat/send/'+room_id, {}, JSON.stringify(chat));
+        		stompClient.send('/sub/messenger/chat/send/'+ room_id, {}, JSON.stringify(chat));
         		printChat(chat);
         	}
         	
-        });
+        }); */
         
         // 채팅 입력창 비우고 포커스
         $('.write-message').val('').focus();

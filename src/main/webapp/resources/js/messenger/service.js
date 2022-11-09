@@ -57,13 +57,13 @@ var messengerService = (function () {
     
 
    function sendChat(chat, callback, error) {
-	console.log("chatService.sendChat");
-    	
+		
     	$.ajax({
     		type: 'POST',
-    		url: '/messenger/chat/send/' + chat.room_id,
-    		data : JSON.stringify(chat),
+    		url: '/messenger/chat/room/' + chat.room_id,
+    		data : chat,
 			contentType : 'application/json; charset=utf-8',
+			dataType: 'text',
     		beforeSend : function(xhr){
                 xhr.setRequestHeader(csrf_header, csrf_token);
             },
