@@ -15,8 +15,8 @@
 </head>
 <body>
 <div class="wrapper">
-   <h3><c:out value="${ error }"/></h3>
-   <h3><c:out value="${ logout }"/></h3>
+   <%-- <h3><c:out value="${ error }"/></h3>
+   <h3><c:out value="${ logout }"/></h3> --%>
    <div class="wrap">
       <form id="login_form" method="post">
          <div class="logo_wrap">
@@ -36,22 +36,24 @@
                      onfocus="this.placeholder=''" onblur="this.placeholder='비밀번호'">
                </div>
             </div>
-            
+                     <input type="hidden" name="${_csrf.parameterName}"
+                        value="${_csrf.token}" />
+            </form>
             <c:if test = "${result == 0 }">
                <div class = "login_warn">사용자 ID 또는 비밀번호를 잘못 입력하셨습니다.</div>
             </c:if>
             
             <div class="login_button_wrap">
-               <input type="button" class="login_button" value="Login">
+               <input type="submit" class="login_button" value="Login">
             </div>         
          </div>
          <input type="hidden" name="${_csrf.parameterName}"
                         value="${_csrf.token}" />
-      </form>
+      
       
    </div>
 
-</div>
+
 
 
 
@@ -65,6 +67,12 @@
 		 $("#login_form").attr("action", "/login");
 		$("#login_form").submit();
 		
+	});
+	
+	$("#login_form").keypress(function (e) {
+		if(e.keyCode === 13){
+			Login();
+		}
 	});
 </script>
 </body>

@@ -31,11 +31,6 @@
 								value='<c:out value="${employee.emp_id }"/>' readonly="readonly">
 						</div>
 						<div class="form-group">
-							<label>비밀번호</label> <input class="form-control" name='password'
-								value='<c:out value="${employee.password }"/>' readonly="readonly">
-						</div>
-
-						<div class="form-group">
 							<label>부서번호</label> <input class="form-control" name='dept_id'
 								value='<c:out value="${employee.dept_id }"/>'
 								readonly="readonly">

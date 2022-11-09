@@ -18,6 +18,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 	@Autowired
 	private EmployeeMapper mapper;
 
+	//관리자 계정
 	@Override
 	public void register(EmployeeVO empVO) {
 		log.info("register..............."+empVO);
@@ -49,7 +50,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 		
 		return mapper.getListWithPaging(cri);
 	}
-
+	
 	
 	@Override
 	public int getTotal(AccountCriteria cri) {
@@ -60,17 +61,24 @@ public class EmployeeServiceImpl implements EmployeeService {
 	public List<EmployeeVO> getRetireeList(AccountCriteria cri) {
 		log.info("getRetireeList with criteria..." + cri);
 		
-		return mapper.getRetireeList(cri);
+		return mapper.getListWithRetireePaging(cri);
+	}
+	
+	@Override
+	public int getTotalRetiree(AccountCriteria cri) {
+		 return mapper.getTotalRetireeCount(cri);
 	}
 
+	//관리자 계정 끝
 	
 	
-	//�Ϲݰ���
+	//일반 계정
 	@Override
 	public boolean modifyMyAccount(EmployeeVO empVO) {
 		log.info("modify..............." + empVO);
 		return mapper.updateMyAccount(empVO) ==1;
 	}
+
 
 
 

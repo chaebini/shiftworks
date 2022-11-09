@@ -2,6 +2,7 @@ package org.shiftworks.service;
 import static org.junit.Assert.*;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.shiftworks.domain.AccountCriteria;
 import org.shiftworks.domain.EmployeeVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,15 +28,15 @@ public class EmployeeServiceTests {
 //		empVO.setPassword("pw11");
 //		
 //		service.register(empVO);
-//		log.info("»õ·Î µî·ÏµÈ »ç¹ø: " + empVO.getEmp_id());
+//		log.info("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ïµï¿½ ï¿½ï¿½ï¿½: " + empVO.getEmp_id());
 //	
 //	}
 	
-//	@Test
-//	public void testGetList() {
-//		
-//		service.getList().forEach(employee->log.info(employee));
-//	}
+	@Test
+	public void testGetList() {
+		AccountCriteria cri = new AccountCriteria();
+		service.getList(cri).forEach(employee->log.info(employee));
+	}
 	
 //	@Test
 //	public void testGet() {
@@ -54,10 +55,10 @@ public class EmployeeServiceTests {
 //		log.info("modify result: " + service.modify(empVO));
 //	}
 	
-	@Test
-	public void testDelete() {
-		log.info("remove result: " + service.remove("user11"));
-	}
+//	@Test
+//	public void testDelete() {
+//		log.info("remove result: " + service.remove("user11"));
+//	}
 	
 
 }

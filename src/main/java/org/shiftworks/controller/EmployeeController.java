@@ -42,12 +42,13 @@ public class EmployeeController {
 		log.info("list11.............."+model);
 		
 	}
+	
 	@GetMapping("/retireelist")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void retireeList(AccountCriteria cri, Model model) {
 		model.addAttribute("list", service.getRetireeList(cri));
 		
-		int total = service.getTotal(cri);
+		int total = service.getTotalRetiree(cri);
 		log.info("total: " + total);
 		model.addAttribute("pageMaker", new AccountPageDTO(cri, total));
 		

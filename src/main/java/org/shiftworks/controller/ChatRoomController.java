@@ -31,7 +31,6 @@ import lombok.extern.log4j.Log4j;
 
 
 @Controller
-@RequestMapping("/messenger/chat")
 @Log4j
 public class ChatRoomController {
 
@@ -43,7 +42,7 @@ public class ChatRoomController {
 
 	// 채팅방 목록 조회
 	@PreAuthorize("isAuthenticated()")
-	@GetMapping("")
+	@GetMapping("/messenger/chat")
 	public String chat(Model model, Authentication auth) {
 
 		UserDetails userDetails = (UserDetails) auth.getPrincipal();
@@ -66,7 +65,7 @@ public class ChatRoomController {
 	}
 
 	// 채팅방 개설
-	@PostMapping("/room")
+	@PostMapping("/messenger/chat/room")
 	@PreAuthorize("isAuthenticated()")
 	public String createChatRoom(ChatRoomDTO chatRoom, RedirectAttributes rttr) {
 
@@ -78,7 +77,7 @@ public class ChatRoomController {
 	}
 
 	// 선택된 채팅방의 정보 요청
-	@GetMapping("/room/{room_id}")
+	@GetMapping("/messenger/chat/room/{room_id}")
 	@PreAuthorize("isAuthenticated()")
 	@ResponseBody
 	public ResponseEntity<List<ChatDTO>> getChat(@PathVariable("room_id") String room_id) {
@@ -87,11 +86,11 @@ public class ChatRoomController {
 	}
 	
 	// 메시지 전송 요청
-	@PostMapping(value="/send/{room_id}", produces=MediaType.TEXT_PLAIN_VALUE)
+	@PostMapping(value="/messenger/chat/send/{room_id}")
 	@ResponseBody
 	public ResponseEntity<String> sendChat(@PathVariable("room_id") String room_id, @RequestBody ChatVO chat){
 		log.info("@ChatRoomController, POST sendMessage...............");
-		
+		log.info("@ChatRoomController, content : "  + chat.getContent());
 		
 		Integer sendResult = chatService.sendChat(chat);
 		Integer updateResult = chatService.updateLastChat(chat);

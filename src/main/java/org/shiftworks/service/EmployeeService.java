@@ -7,17 +7,18 @@ import org.shiftworks.domain.EmployeeVO;
 
 public interface EmployeeService {
 	
-	//°ü¸®ÀÚ °èÁ¤ ¸Ş´º
-	public void register(EmployeeVO empVO);//°èÁ¤µî·Ï
-	public EmployeeVO get(String emp_id);//°ÔÁ¤»ó¼¼º¸±â
-	public boolean modify(EmployeeVO empVO);//°èÁ¤¼öÁ¤
-	public boolean remove(String emp_id);//°èÁ¤»èÁ¦
-	public List<EmployeeVO> getList(AccountCriteria cri);//ÀüÃ¼¸®½ºÆ®
-	public int getTotal(AccountCriteria cri);//ÃÑ °èÁ¤ °³¼ö
-	public List<EmployeeVO> getRetireeList(AccountCriteria cri);//Åğ»çÀÚ¸®½ºÆ®
+	//ê´€ë¦¬ì ê³„ì • ë©”ë‰´
+	public void register(EmployeeVO empVO);//ê³„ì • ìƒì„±
+	public EmployeeVO get(String emp_id);//ê³„ì • ìƒì„¸ ì •ë³´
+	public boolean modify(EmployeeVO empVO);//ê³„ì •ì •ë³´ ìˆ˜ì •
+	public boolean remove(String emp_id);//ê³„ì • ì‚­ì œ
+	public List<EmployeeVO> getList(AccountCriteria cri);//í˜„ ê·¼ë¬´ì ì „ì²´ ë¦¬ìŠ¤íŠ¸
+	public int getTotal(AccountCriteria cri);//í˜„ ê·¼ë¬´ì ê³„ì • ì´ ê°œìˆ˜
+	public List<EmployeeVO> getRetireeList(AccountCriteria cri);//í‡´ì‚¬ì ì „ì²´ ë¦¬ìŠ¤íŠ¸
+	public int getTotalRetiree(AccountCriteria cri);//í‡´ì‚¬ì ê³„ì • ì´ ê°œìˆ˜
 	
-	
-	//ÀÏ¹İ °èÁ¤ ¸Ş´º
-	public boolean modifyMyAccount(EmployeeVO empVO);
+		
+	//ì¼ë°˜ ê³„ì • ë©”ë‰´
+	public boolean modifyMyAccount(EmployeeVO empVO);//ë‚˜ì˜ ê³„ì • ì •ë³´ ìˆ˜ì •
 	
 }

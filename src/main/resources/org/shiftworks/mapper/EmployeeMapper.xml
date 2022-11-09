@@ -11,13 +11,13 @@
 				<trim prefix="OR">
 					<choose>
 						<when test="type == 'E'.toString()">
-							emp_id like '%'||#{emp_id}||'%'
+							emp_id like '%'||#{keyword}||'%'
 						</when>
 						<when test="type == 'D'.toString()">
-							dept_name like '%'||#{dept_name}||'%'
+							dept_name like '%'||#{keyword}||'%'
 						</when>
 						<when test="type == 'N'.toString()">
-							name like '%'||#{name}||'%'
+							name like '%'||#{keyword}||'%'
 						</when>
 					</choose>
 				</trim>
@@ -55,12 +55,20 @@
 	
 	
 	<!--계정관리-->
-		<!--전체 list-->
+		<!--전체  list-->
 	<select id="getList" resultType="org.shiftworks.domain.EmployeeVO">
 			SELECT emp_id, dept_name, position, name, entry_date
 			FROM employee e JOIN department d
 			ON e.dept_id = d.dept_id
-			WHERE  resignation_date is null			
+			WHERE resignation_date is null
+	</select>
+	
+		<!-- 퇴직자리스트 -->
+	<select id="getRetireeList" resultType="org.shiftworks.domain.EmployeeVO">
+			SELECT emp_id, dept_name, position, name, entry_date
+			FROM employee e JOIN department d
+			ON e.dept_id = d.dept_id
+			WHERE resignation_date is not null			
 	</select>
 	
 		<!--검색 및 페이징 처리 -->
@@ -69,7 +77,7 @@
 		<![CDATA[ 
 		select emp_id, dept_name, position, name, entry_date
 			from ( 
-				select /*+INDEX_DESC(employee pk_emp_id) */ 
+				select /*+INDEX_DESC(employee employee_pk) */ 
 						rownum rn, emp_id, dept_name, position, name, entry_date
 					from employee e JOIN department d
 					on e.dept_id = d.dept_id
@@ -77,17 +85,40 @@
 		]]>
 	<include refid="criteria"/>
 	<![CDATA[
-			 rownum <= #{pageNum} * #{amont}
-		) where rn > (#{pageNum} -1) * #{amount}
+			 rownum <= #{pageNum} * #{amount}
+		)where rn > (#{pageNum} -1) * #{amount}
 	]]>
+	</select>
+	
+		<!-- 퇴사자 검색 및 페이징 처리 -->
+	<select id="getListWithRetireePaging"
+		resultType="org.shiftworks.domain.EmployeeVO"> 
+		<![CDATA[ 
+		select emp_id, dept_name, position, name, resignation_date, entry_date
+			from ( 
+				select /*+INDEX_DESC(employee employee_pk) */ 
+						rownum rn, emp_id, dept_name, position, name, resignation_date, entry_date
+					from employee e JOIN department d
+					on e.dept_id = d.dept_id
+					where 
+		]]>
+	<include refid="criteria"/>
+	<![CDATA[
+			 rownum <= #{pageNum} * #{amount}
+		)where rn > (#{pageNum} -1) * #{amount}
+	]]>and resignation_date is not null
 	</select>
 	
 		<!-- 총 계정 개수 -->
 	 <select id="getTotalCount" resultType="int">
-		select count(*) from employee 
-		where
-		<include refid="criteria"/>
-		emp_id is not null
+		select count(*) from employee e
+		where <include refid="criteria"/> resignation_date is null
+	</select>
+	
+	<!--총 퇴사자 계정 개수  -->
+	<select id="getTotalRetireeCount" resultType="int">
+		select count(*) from employee e
+		where <include refid="criteria"/> resignation_date is not null
 	</select>
 		
 		<!-- 계정추가 -->
@@ -100,7 +131,7 @@
 	
 		<!-- 계정상세보기 -->
 	<select id="detail" resultType="org.shiftworks.domain.EmployeeVO">
-		select emp_id, password, e.dept_id as dept_id, password, position, name, birthday, mobile, internal, 
+		select emp_id, password, e.dept_id as dept_id, position, name, birthday, mobile, internal, 
 		email, address, entry_date, resignation_date
 		FROM employee e JOIN department d
 			ON e.dept_id = d.dept_id where emp_id = #{emp_id}
@@ -117,13 +148,7 @@
 		, email=#{email}, address=#{address}, resignation_date=#{resignation_date} where emp_id=#{emp_id}
 	</update>
 	
-	<!-- 퇴직자리스트 -->
-	<select id="getRetireeList" resultType="org.shiftworks.domain.EmployeeVO">
-			SELECT emp_id, dept_name, position, name, entry_date
-			FROM employee e JOIN department d
-			ON e.dept_id = d.dept_id
-			WHERE  resignation_date is not null			
-	</select>
+
 	<!-- 관리자 계정 끝 -->
 	
 	

@@ -74,14 +74,16 @@ public class EmployeeMapperTests {
 //		log.info("Update Count: " + empVO);
 //		
 //	}
-//	@Test
-//	public void testgetList() {
-//		AccountCriteria cri = new AccountCriteria();
-//		cri.setKeyword("회계팀");
-//		cri.setType("D");
-//		cri.setPageNum(1);
-//		cri.setAmount(10);
-//		
-//		mapper.getListWithPaging(cri);
-//	}
+	@Test
+	public void testGetListWithPaging() {
+		//검색 테스트
+		AccountCriteria cri = new AccountCriteria();
+		cri.setKeyword("회계");
+		cri.setType("D");
+		cri.setPageNum(1);
+		cri.setAmount(10);
+		
+		mapper.getListWithPaging(cri);
+	}
+
 }

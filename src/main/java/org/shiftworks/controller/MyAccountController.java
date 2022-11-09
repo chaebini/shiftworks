@@ -31,7 +31,7 @@ public class MyAccountController {
 	private BCryptPasswordEncoder pwdEncoder;
 	
 
-	@GetMapping({"/get", "/modify"})
+	@GetMapping("/get")
 	@PreAuthorize("isAuthenticated()")
 	public void get(@RequestParam("emp_id") String emp_id, Model model) {
 		log.info("get...my account...........");

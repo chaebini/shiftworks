@@ -171,24 +171,7 @@
 							}
 
 							if (result !=='null') {
-								$(".modal-body").html("계정생성이 완료되었습니다.");
-							}
-
-							$("#myModal").modal("show");
-							$("#rgmdBtn").click(function() {
-				                $("#myModal").modal("hide");
-				            });
-							  
-						}
-						
-						function checkModal(modifyResult) {
-
-							if (modifyResult === '' || history.state) {
-								return;
-							}
-
-							if (modifyResult !=='null') {
-								$(".modal-body").html("계정정보가 수정되었습니다.");
+								$(".modal-body").html("완료되었습니다.");
 							}
 
 							$("#myModal").modal("show");

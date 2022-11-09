@@ -22,24 +22,24 @@ public class ChatTests {
 	ChatMapper mapper;
 	
 	// 지난 채팅 5개 가져오긴
-	@Test
-	public void testGetList() {
-				
-		mapper.getList("1").forEach(chat->log.info(chat));
-	}
+//	@Test
+//	public void testGetList() {
+//				
+//		mapper.getList("1").forEach(chat->log.info(chat));
+//	}
 	
 	// 채팅 저장하기
-//	@Test
-//	public void testInsert() {
-//		
-//		ChatVO chat = new ChatVO();
-//		chat.setContent("안녕하세요");
-//		chat.setSender("user2");
-//		chat.setSendtime("2022-11-04 11:58:33");
-//		chat.setRoom_id(2);
-//		
-//		int re = mapper.insertChat(chat);
-//		log.info(chat);
-//		log.info("re = " + re);
-//	}
+	@Test
+	public void testInsert() {
+		
+		ChatVO chat = new ChatVO();
+		chat.setContent("안녕하세요");
+		chat.setSender("user2");
+		chat.setSendtime("2022-11-04 11:58:33");
+		chat.setRoom_id("2");
+		
+		int re = mapper.insertChat(chat);
+		log.info(chat);
+		log.info("re = " + re);
+	}
 }
