@@ -8,16 +8,22 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
+import org.shiftworks.domain.AlarmVO;
 import org.shiftworks.domain.ApprovalCriteria;
 import org.shiftworks.domain.BookingVO;
+import org.shiftworks.mapper.AlarmMapper;
 import org.shiftworks.service.ApprovalService;
 import org.shiftworks.service.BookingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import lombok.AllArgsConstructor;
 
@@ -32,6 +38,7 @@ public class HomeController {
 	
 	private BookingService bookingService;
 	private ApprovalService appService;
+	private AlarmMapper alarmMapper;
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
@@ -79,6 +86,14 @@ public class HomeController {
 		return "home"; 
 	}
 	
+	
+	@GetMapping(value="/alarm/{emp_id}/{today}",
+				produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
+	public @ResponseBody List<AlarmVO> getAlarm(@PathVariable String emp_id, @PathVariable String today) {
+		List<AlarmVO> list = alarmMapper.getAlarm(emp_id, today);
+		
+		return list;
+	}
 	
 	
 	

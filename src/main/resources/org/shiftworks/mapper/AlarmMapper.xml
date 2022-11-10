@@ -12,6 +12,7 @@
 	<select id="getAlarm" resultType="org.shiftworks.domain.AlarmVO">
 		SELECT alarm_id, content FROM alarm
 			WHERE emp_id = #{emp_id}
+			AND date_created = #{today}
 	</select>
 	
 	<delete id="deleteAlarm">
