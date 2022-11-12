@@ -75,7 +75,7 @@
 
 <script type="text/javascript">
 $(document).ready(function(){
-	// 로딩 시 보이기
+	// 페이지 로딩 시 로그인 유저 정보와 오늘 날짜 저장
 	var emp_id = '<sec:authentication property="principal.username"/>';
 	var today = new Date();
     var year = today.getFullYear();
@@ -83,7 +83,7 @@ $(document).ready(function(){
     var day = ('0' + today.getDate()).slice(-2);
     today = year + '-' + month  + '-' + day;
 	
-	// 알림 내역 가져와서 뿌리기
+	// 해당 유저의 오늘 알림 내역 가져와서 뿌리기
     $.ajax({
     	type: 'get',
         url: '/alarm/' + emp_id + "/" + today,
